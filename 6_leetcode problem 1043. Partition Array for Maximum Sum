@@ -1,0 +1,13 @@
+class Solution:
+    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        dp = [0] * (n+1)
+        for i in range(1, n+1):
+            currMax = arr[i-1]
+            for j in range(k):
+                if i-j>0:
+                    currMax = max(currMax, arr[i-j-1])
+                    dp[i] = max(dp[i], currMax * (j+1) + dp[i-j-1])
+                else:
+                    break
+        return dp[-1]
