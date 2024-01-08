@@ -1,0 +1,12 @@
+938. Range Sum of BST
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        def dfs(root,low,high):
+            if root==None:
+                return 0
+            l=dfs(root.left,low,high)
+            r=dfs(root.right,low,high)
+            if root.val>=low and root.val<=high:
+                return l+r+ root.val
+            return l+r
+        return dfs(root,low,high)
