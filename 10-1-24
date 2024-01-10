@@ -1,0 +1,21 @@
+46. Permutations
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def fun(nums,ans,s,freq):
+            if len(s)==len(nums):
+                ans.append(s[:])
+                return
+            for i in range(len(nums)):
+                if not freq[i]:
+                    freq[i]=True
+                    s.append(nums[i])
+                    fun(nums,ans,s,freq)
+                    s.pop()
+                    freq[i]=False
+
+        ans=[]
+        s=[]
+        freq=[False]*len(nums)
+        fun(nums,ans,s,freq)
+        return ans
