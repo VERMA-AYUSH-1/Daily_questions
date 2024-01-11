@@ -1,0 +1,21 @@
+1026. Maximum Difference Between Node and Ancestor
+
+class Solution:
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        def fun(root,maxx):
+            if root==None:
+                return []
+            if not root.left and not root.right:
+                return [root.val]
+            
+            l=fun(root.left,maxx)
+            r=fun(root.right,maxx)
+            ans=l[:]+r[:]
+            for i in range(len(ans)):
+                maxx[0]=max(maxx[0],abs(root.val-ans[i]))
+
+            return (ans[:]+[root.val])
+        
+        maxx=[0]
+        fun(root,maxx)
+        return maxx[0]
