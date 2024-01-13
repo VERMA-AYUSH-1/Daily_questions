@@ -1,0 +1,23 @@
+1347. Minimum Number of Steps to Make Two Strings Anagram
+
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+
+        count = 0
+        for i in s:
+            if i in t:
+                t = t.replace(i,"",1)
+            else:
+                count = count + 1
+        return count
+        # c=0
+        # t=list(t)
+        # n=len(s)
+        # for i in range(len(s)):
+        #     if s[i] in t:
+        #         t.remove(s[i])
+        #     else:
+        #         c+=1
+
+        
+        # return c
