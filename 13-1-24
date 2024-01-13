@@ -21,3 +21,30 @@ class Solution:
 
         
         # return c
+
+2265. Count Nodes Equal to Average of Subtree
+
+class Solution:
+    def averageOfSubtree(self, root: TreeNode) -> int:
+        def post(root,count):
+            if root== None:
+                return 0,0
+            if not root.left and not root.right:
+                count[0]+=1
+                return root.val,1
+            
+            l,lc=post(root.left,count)
+            r,rc=post(root.right,count)
+
+            s=l+r+root.val
+            sc=lc+rc+1
+            # print(s,sc)
+
+            if (s//sc)==root.val:
+                count[0]=count[0]+1
+            
+            return s,sc
+
+        count=[0]
+        post(root,count)
+        return count[0]
