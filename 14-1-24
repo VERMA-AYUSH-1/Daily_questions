@@ -1,0 +1,74 @@
+1315. Sum of Nodes with Even-Valued Grandparent
+
+class Solution:
+    def sumEvenGrandparent(self, root: TreeNode) -> int:
+        def fun(root,parent,gparent):
+            if root== None:
+                return 0
+            return fun(root.left,root.val,parent)+fun(root.right,root.val,parent)+(0 if gparent&1!=0 else root.val)
+
+
+        return fun(root,-1,-1)
+        # def pre(root,c):
+        #     if root==None:
+        #         return 
+        #     if root.val & 1==0:
+        #         if root.left:
+        #             if root.left.left:
+        #                 c[0]+=root.left.left.val
+        #             if root.left.right:
+        #                 c[0]+=root.left.right.val 
+        #         if root.right:                        
+        #             if root.right.left:
+        #                 c[0]+=root.right.left.val
+        #             if root.right.right:
+        #                 c[0]+=root.right.right.val 
+        #     pre(root.left,c)
+        #     pre(root.right,c)
+
+        c=[0]
+        pre(root,c)
+        return c[0]
+
+        # s=deque()
+        # s.append(root)
+        # c=0
+        # while len(s)!=0:
+        #     curr=s.popleft()
+        #     if curr.left:
+        #         s.append(curr.left)
+        #         if curr.val & 1==0:
+        #             if curr.left.left:
+        #                 c+=curr.left.left.val
+        #             if curr.left.right:
+        #                 c+=curr.left.right.val                 
+        #     if curr.right:
+        #         s.append(curr.right)
+        #         if curr.val & 1==0:
+        #             if curr.right.left:
+        #                 c+=curr.right.left.val
+        #             if curr.right.right:
+        #                 c+=curr.right.right.val  
+                
+        # return c
+
+
+1657. Determine if Two Strings Are Close
+
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        w1=set(word1)
+        w2=set(word2)
+
+        if len(word1)!=len(word2) or w1!=w2:
+            return False
+        wd1=[]
+        wd2=[]
+        for i in w1:
+            wd1.append(word1.count(i))
+            wd2.append(word2.count(i))
+        if sorted(wd1)==sorted(wd2):
+            return True
+        else:
+            return False
+                
