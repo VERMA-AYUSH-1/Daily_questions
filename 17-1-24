@@ -1,0 +1,15 @@
+1207. Unique Number of Occurrences
+
+
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        a=set(arr)
+        b=[]
+        for i in a:
+            b.append(arr.count(i))
+
+
+        if sorted(b)==sorted(list(set(b))):
+            return True
+        else:
+            return False
