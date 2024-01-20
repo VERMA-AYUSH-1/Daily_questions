@@ -1,0 +1,46 @@
+907. Sum of Subarray Minimums
+
+class Solution:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        def nsel(arr,n):
+            ans=[]
+            stack=deque()
+            for i in range(n):
+                while stack and arr[stack[-1]]>=arr[i]:
+                    stack.pop()
+                if len(stack)==0:
+                    ans.append(-1)
+                elif arr[stack[-1]]<arr[i]:
+                    ans.append(stack[-1])
+                stack.append(i)
+
+            return ans
+
+        def nser(arr,n):
+            ans=[]
+            stack=deque()
+            for i in range(n-1,-1,-1):
+                while stack and arr[stack[-1]]>arr[i]:
+                    stack.pop()
+                if len(stack)==0:
+                    ans.append(n)
+                elif arr[stack[-1]]<=arr[i]:
+                    ans.append(stack[-1])
+                stack.append(i)
+            
+            return ans[::-1]
+
+        n=len(arr)
+        a=nsel(arr,n)
+        # print(a)
+        b=nser(arr,n)
+        # print(b)
+        s=0 
+        for i in range(n):
+            s+=((i-a[i])*(b[i]-i)*arr[i])
+
+        
+        return s%(10**9+7)
+
+
+        
