@@ -1,0 +1,61 @@
+198. House Robber
+
+class Solution:
+    def rob(self, arr: List[int]) -> int:
+
+        def f(i, s, n, arr, dp):
+            if i >= n:
+                return 0
+            if dp[i] != -1:
+                return dp[i]
+
+            a = f(i + 2, s + arr[i], n, arr, dp)
+            b = f(i + 3, s + arr[i], n, arr, dp)
+            dp[i] = arr[i] + max(a, b)
+            return dp[i]
+        n = len(arr)
+        dp = [-1] * n
+
+        result_1 = f(0, 0, n, arr, dp.copy())
+        result_2 = f(1, 0, n, arr, dp.copy())
+
+        # Choose the maximum of the two results
+        final_result = max(result_1, result_2)
+        return (final_result)
+
+        # def f(i,s,summ,n,arr,dp):
+        #     if i>=n:
+        #         return 0
+        #     if dp[i]!=-1:
+        #         return dp[i] 
+        #     a=f(i+2,s+arr[i],summ,n,arr,dp)
+        #     b=f(i+3,s+arr[i],summ,n,arr,dp)
+        #     summ[0]=arr[i]+max(a,b)
+        #     dp[i]=arr[i]+max(a,b)
+
+        # n=len(arr)
+        # dp=[-1]*n
+        # summ=[0]
+        # s=0
+        # f(0,s,summ,n,arr,dp)        
+        # f(1,s,summ,n,arr,dp)
+
+        # return summ[0]   
+
+        # Recursion solution     
+        # def f(i,s,summ,n,arr):
+        #     if i>=n:
+        #         summ[0]=max(s,summ[0])
+        #         return
+                
+        #     else:
+        #         f(i+2,s+arr[i],summ,n,arr)
+        #         f(i+3,s+arr[i],summ,n,arr)
+
+        # summ=[0]
+        # n=len(arr)
+        # s=0
+        # f(0,s,summ,n,arr)        
+        # f(1,s,summ,n,arr)
+
+        # return summ[0]        
