@@ -1,0 +1,84 @@
+37. Sudoku Solver
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+
+        def isvalid(board,row,col,c):
+            for i in range(9):
+                if board[i][col]==c:
+                    return False
+                if board[row][i]==c:
+                    return False
+                if (board[3*(row//3)+i//3][3*(col//3)+i%3])==c:
+                    return False
+            return True
+        def solve(board):
+            for i in range(len(board)):
+                for j in range(len(board[i])):
+                    if board[i][j]==".":
+                        for char in range(1,9+1):
+                            if isvalid(board,i,j,str(char)):
+                                board[i][j]=str(char)
+
+                                if solve(board)==True:
+                                    return True
+                                else:
+                                    board[i][j]="."
+
+
+                        return False
+
+            return True
+
+        solve(board)
+
+
+
+645. Set Mismatch
+
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        # Calculate the expected sum of 1 to n
+        expected_sum = n * (n + 1) // 2
+
+        # Use a set to identify the duplicate
+        seen = set()
+        duplicate = 0
+        actual_sum = 0
+
+        for num in nums:
+            if num in seen:
+                duplicate = num
+            seen.add(num)
+            actual_sum += num
+
+        # Calculate the missing number
+        missing = expected_sum - actual_sum + duplicate
+
+        return [duplicate, missing]
+
+# class Solution:
+#     def findErrorNums(self, nums: List[int]) -> List[int]:
+#         n=len(nums)
+#         # nums.sort()
+#         # arr=list(range(1,n+1))
+#         # for i in range(n):
+#         a=0
+#         b=0
+#         i=1
+#         while a==0 or b==0:
+#             s=nums.count(i)
+#             if s==2:
+#                 a=i
+#             if s==0:
+#                 b=i
+#             i+=1
+
+#         return [a,b]
+
+        
+
+        
